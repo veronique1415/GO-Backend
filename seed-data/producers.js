@@ -1,0 +1,32 @@
+module.exports = [
+    {
+      producer_id: 1,
+      producer_name: "His mother had always taught him",
+      producer_region: "His mother had always taught him",
+      producer_village: "His mother had always taught him",
+      producer_image: "http://localhost:8080/images/bmx.jpg",
+      producer_description: "His mother had always taught him",
+      producer_description2: "His mother had always taught him",
+      producer_description3: "His mother had always taught him",
+    },
+    {
+        producer_id: 2,
+        producer_name: "His mother had always taught him",
+        producer_region: "His mother had always taught him",
+        producer_village: "His mother had always taught him",
+        producer_image: "http://localhost:8080/images/bmx.jpg",
+        producer_description: "His mother had always taught him",
+        producer_description2: "His mother had always taught him",
+        producer_description3: "His mother had always taught him",
+      },
+      {
+        producer_id: 3,
+        producer_name: "His mother had always taught him",
+        producer_region: "His mother had always taught him",
+        producer_village: "His mother had always taught him",
+        producer_image: "http://localhost:8080/images/bmx.jpg",
+        producer_description: "His mother had always taught him",
+        producer_description2: "His mother had always taught him",
+        producer_description3: "His mother had always taught him",
+      },
+]

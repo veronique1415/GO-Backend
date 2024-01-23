@@ -17,7 +17,7 @@ module.exports = [
         product_name: "His mother had always taught him",
         product_region: "His mother had always taught him",
         product_appellation: "His mother had always taught him",
-        product_image: "http://localhost:8080/images/bmx.jpg",
+        product_image: "http://localhost:8080/images/",
         product_description: "His mother had always taught him",
         product_varietal: "His mother had always taught him",
         product_varietal2: "His mother had always taught him",

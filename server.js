@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require("cors")
 require("dotenv").config();
 const port = process.env.PORT || 8081;
 
@@ -12,7 +13,8 @@ app.use(express.static("public"))
 const productsRouter = require("./routes/products");
 app.use("/products", productsRouter);
 
-
+const producersRouter = require("./routes/producers");
+app.use("/producers", producersRouter);
 
 
 app.listen(port, () => {

@@ -39,7 +39,7 @@ module.exports = [
         product_region: "Ardèche, France",
         product_appellation: "Vin de France",
         product_image: "http://localhost:8080/images/vailleQueVaille.jpeg",
-        product_description: "From a 60-year-old plot of Gamay planted on terraces of sandy granitic soil. Grapes were left in whole bunches to macerate for 1 week before being de-stemmed by hand and then fermented gently on the skins for another 2 weeks.This is about as perfumed as you can get from the Gamay grape — bright and elegant with little red fruits and a pleasing mineral finish.",
+        product_description: "This Gamay comes from a 60-year-old sandy granitic plot. After a week of whole bunch maceration and hand de-stemming, it undergoes a gentle 2-week skin fermentation. The result is a bright, elegant wine with red fruits and a pleasing mineral finish.",
         product_varietal: "Gamay",
         producer_id: 2,
       },

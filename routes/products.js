@@ -7,6 +7,8 @@ router
     .route("/")
     .get(productsController.getAll)
 
-
+router
+    .route("/:productId")
+    .get(productsController.findOne)
 
 module.exports = router;

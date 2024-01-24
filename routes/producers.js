@@ -8,5 +8,10 @@ router
     .get(producerController.getAll)
 
 
+router 
+    .route("/:producerId")
+    .get(producerController.findOne)    
+
+
 
 module.exports = router;

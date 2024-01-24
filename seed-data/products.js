@@ -70,7 +70,7 @@ module.exports = [
         product_name: "Querciole",
         product_region: "Emilia Romagna, Italy",
         product_appellation: "Emilia Bianco Frizzante igt Biologico",
-        product_image: "http://localhost:8080/images/CadeNociR2.jpg",
+        product_image: "http://localhost:8080/images/CadeNociO.jpg",
         product_description: "The golden apple and baked brioche aromas of the bubbles pave the way for an exuberant palate of candied citrus, baked walnuts and pickled melon. ",
         product_varietal: "Spergola", 
         producer_id: 3,

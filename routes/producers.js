@@ -1,4 +1,5 @@
 const producerController = require("../controllers/producers-controller");
+const productController = require("../controllers/products-controller")
 const express = require("express");
 const router = express.Router();
 
@@ -11,6 +12,10 @@ router
 router 
     .route("/:producerId")
     .get(producerController.findOne)    
+
+router
+    .route("/:producerId/products")
+    .get(productController.producersProducts)    
 
 
 

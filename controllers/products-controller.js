@@ -34,9 +34,33 @@ const getAll = async (_req, res) => {
       });
     }
   };
-
+  const producersProducts = async (req, res) => {
+    try {
+      const products = await knex("product")
+        .join("producer", "producer.producer_id", "product.producer_id")
+        .select(
+          "product.product_id",
+          "product.product_name",
+          "product.product_image",
+        )
+        .where({
+          'producer.producer_id': req.params.producerId,
+        });
+        
+      if (products.length < 1) {
+        return res.status(404).json({
+          message: `Producer with ID ${req.params.producerId} not found`,
+        });
+      }
+      res.status(200).json(products);
+    } catch (error) {
+      console.error("Error retrieving products:", error);
+      res.status(500).json({ message: "Unable to retrieve products for that producer." });
+    }
+  };
 
   module.exports = {
     getAll,
-    findOne
+    findOne,
+    producersProducts
   };

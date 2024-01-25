@@ -42,6 +42,12 @@ const getAll = async (_req, res) => {
           "product.product_id",
           "product.product_name",
           "product.product_image",
+          "producer.producer_image",
+          "producer.producer_description",
+          "producer.producer_description2",
+          "producer.producer_description3",
+          "producer.producer_village",
+          "producer.producer_region"
         )
         .where({
           'producer.producer_id': req.params.producerId,
@@ -52,7 +58,14 @@ const getAll = async (_req, res) => {
           message: `Producer with ID ${req.params.producerId} not found`,
         });
       }
-      res.status(200).json(products);
+      const filteredProducts = products.map(product => {
+        // Use Object.fromEntries to create a new object without null values
+        return Object.fromEntries(
+          Object.entries(product).filter(([key, value]) => value !== null)
+        );
+      });
+  
+      res.status(200).json(filteredProducts);
     } catch (error) {
       console.error("Error retrieving products:", error);
       res.status(500).json({ message: "Unable to retrieve products for that producer." });

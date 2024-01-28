@@ -44,7 +44,7 @@ module.exports = [
         product_description: "The golden apple and baked brioche aromas of the bubbles pave the way for an exuberant palate of candied citrus, baked walnuts and pickled melon. ",
         product_varietal: "Spergola", 
         product_producer: "Ca' de Noci",
-        product_vintage: "",
+        product_vintage: "2020",
         producer_id: 3,
       },
       {

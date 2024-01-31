@@ -8,14 +8,20 @@ router
     .route("/")
     .get(producerController.getAll)
 
+router
+    .get("/search", producerController.searchProducers);      
+
 
 router 
     .route("/:producerId")
-    .get(producerController.findOne)    
-
+    .get(producerController.findOne) 
+     
+   
 router
     .route("/:producerId/products")
-    .get(productController.producersProducts)    
+    .get(productController.producersProducts)  
+    
+
 
 
 

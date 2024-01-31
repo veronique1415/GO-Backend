@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 
+
 const getAll = async (_req, res) => {
     try {
       const allProducers = await knex.select("*").from("producer");
@@ -37,7 +38,47 @@ const getAll = async (_req, res) => {
   };
 
 
+
+  const searchProducers = async (req, res) => {
+    try {
+      const searchTerm = req.query.s ? req.query.s.toLowerCase() : '';
+  
+      const results = await search(knex, searchTerm);
+  
+      res.status(200).json(results);
+    } catch (error) {
+      console.error('Error searching producers:', error);
+      res.status(500).json({ message: 'Internal Server Error - Unable to retrieve search information' });
+    }
+  };
+  
+  const search = async (knex, searchQuery) => {
+    try {
+      if (!searchQuery) {
+        throw new Error('Search query is undefined');
+      }
+  
+      const filteredProducers = await knex('producer')
+        .where('producer_name', 'LIKE', `%${searchQuery}%`)
+        .orWhere('producer_region', 'LIKE', `%${searchQuery}%`)
+        .orWhere('producer_village', 'LIKE', `%${searchQuery}%`)
+        .select('*');
+      console.log(filteredProducers.toString())
+      return filteredProducers;
+    } catch (error) {
+      console.error('Error searching producers:', error);
+      throw new Error('Internal Server Error - Unable to retrieve search information');
+    }
+  };
+  
+ 
+  
+
+  
+
+
   module.exports = {
     getAll,
-    findOne
+    findOne,
+    searchProducers
   };

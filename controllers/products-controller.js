@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 
+
 const getAll = async (_req, res) => {
     try {
       const allProducts = await knex.select("*").from("product");
@@ -59,7 +60,7 @@ const getAll = async (_req, res) => {
         });
       }
       const filteredProducts = products.map(product => {
-        // Use Object.fromEntries to create a new object without null values
+       
         return Object.fromEntries(
           Object.entries(product).filter(([key, value]) => value !== null)
         );
@@ -72,8 +73,45 @@ const getAll = async (_req, res) => {
     }
   };
 
+  const searchProducts = async (req, res) => {
+    try {
+      const searchTerm = req.query.s ? req.query.s.toLowerCase() : '';
+  
+      const results = await search(knex, searchTerm);
+  
+      res.status(200).json(results);
+    } catch (error) {
+      console.error('Error searching products:', error);
+      res.status(500).json({ message: 'Internal Server Error - Unable to retrieve search information' });
+    }
+  };
+  
+  const search = async (knex, searchQuery) => {
+    try {
+      if (!searchQuery) {
+        throw new Error('Search query is undefined');
+      }
+  
+      const filteredProducers = await knex('product')
+        .where('product_name', 'LIKE', `%${searchQuery}%`)
+        .orWhere('product_varietal', 'LIKE', `%${searchQuery}%`)
+        .orWhere('product_producer', 'LIKE', `%${searchQuery}%`)
+        .orWhere('product_region', 'LIKE', `%${searchQuery}%`)
+        .orWhere('product_type', 'LIKE', `%${searchQuery}%`)
+        .select('*');
+      return filteredProducers;
+    } catch (error) {
+      console.error('Error searching products:', error);
+      throw new Error('Internal Server Error - Unable to retrieve search information');
+    }
+  }; 
+
+  
+
   module.exports = {
     getAll,
     findOne,
-    producersProducts
+    producersProducts,
+    searchProducts
+
   };

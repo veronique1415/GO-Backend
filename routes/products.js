@@ -8,7 +8,13 @@ router
     .get(productsController.getAll)
 
 router
+    .route("/search")
+    .get(productsController.searchProducts)    
+
+router
     .route("/:productId")
     .get(productsController.findOne)
 
-module.exports = router;
+
+
+module.exports = router; 

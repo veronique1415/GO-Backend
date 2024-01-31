@@ -24,6 +24,7 @@ exports.up = function (knex) {
         table.string("product_varietal").notNullable();
         table.string("product_producer").notNullable();
         table.string("product_vintage").notNullable();
+        table.string("product_type").notNullable();
         table
           .integer("producer_id")
           .unsigned()

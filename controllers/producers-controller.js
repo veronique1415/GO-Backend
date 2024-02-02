@@ -63,7 +63,6 @@ const getAll = async (_req, res) => {
         .orWhere('producer_region', 'LIKE', `%${searchQuery}%`)
         .orWhere('producer_village', 'LIKE', `%${searchQuery}%`)
         .select('*');
-      console.log(filteredProducers.toString())
       return filteredProducers;
     } catch (error) {
       console.error('Error searching producers:', error);

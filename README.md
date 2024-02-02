@@ -47,7 +47,7 @@ The users would use this website to read about my friend's imported wines, learn
 <summary>Instructions</summary>
 ### Instructions
 
-1A.You can visit my repository live on this website : "https://dynamic-crepe-c3c437.netlify.app/"
+1A.You can visit my repository live on this website : "https://grand-ordinaire.netlify.app"
 
 1B. You can visit my different endpoints with this link: "https://grandordinaire-4b0d635ecbc0.herokuapp.com/producers" (this one showcases the producers endpoint already)
 

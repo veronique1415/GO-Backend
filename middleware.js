@@ -23,8 +23,10 @@ module.exports = (req, res, next) => {
 
   jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
     if (err) {
+        console.error("JWT verification failed:", err.message)
         return createError(403, "Invalid JWT");
     }
+    console.log('JWT verified successfully for user:', decoded.email);
     next();
   });
 };

@@ -6,3 +6,6 @@ const router = express.Router();
 router
     .route("/")
     .post(adminController.loginAdmin)
+
+
+module.exports = router;   

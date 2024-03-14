@@ -69,6 +69,28 @@ const getAll = async (_req, res) => {
       throw new Error('Internal Server Error - Unable to retrieve search information');
     }
   };
+
+  const add = async (req, res) => {
+    // if (!req.body.producer_name || !req.body.producer_region) {
+    //   console.log(req.body.producer_name)
+    //   return res.status(400).json({
+    //     message: "Please provide name and region for the user in the request",
+    //   });
+    // }
+  
+    try {
+      const result = await knex("producer").insert(req.body);
+  
+      const newProducerId = result[0];
+      const createdProducer = await knex("producer").where({ id: newProducerId });
+  
+      res.status(201).json(createdProducer);
+    } catch (error) {
+      res.status(500).json({
+        message: `Unable to create new user: ${error}`,
+      });
+    }
+  };
   
  
   
@@ -79,5 +101,6 @@ const getAll = async (_req, res) => {
   module.exports = {
     getAll,
     findOne,
-    searchProducers
+    searchProducers,
+    add
   };

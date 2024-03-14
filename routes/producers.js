@@ -7,6 +7,7 @@ const router = express.Router();
 router
     .route("/")
     .get(producerController.getAll)
+    .post(producerController.add)
 
 router
     .get("/search", producerController.searchProducers);      

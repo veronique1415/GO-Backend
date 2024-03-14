@@ -1,6 +1,7 @@
 const knex = require('knex')(require("../knexfile"))
 const express = require("express");
 const router = express.Router();
+const Joi = require("joi")
 
 
 
@@ -70,6 +71,16 @@ const getAll = async (_req, res) => {
     }
   };
 
+  const producerSchema = Joi.object({
+    producer_name: Joi.string().required(),
+    producer_region: Joi.string().required(),
+    producer_village: Joi.string().required(),
+    producer_image: Joi.string().required(),
+    producer_description: Joi.string().required(),
+    producer_description2: Joi.string().required(),
+    producer_description3: Joi.string().required(),
+  })
+
   const add = async (req, res) => {
     // if (!req.body.producer_name || !req.body.producer_region) {
     //   console.log(req.body.producer_name)
@@ -77,7 +88,13 @@ const getAll = async (_req, res) => {
     //     message: "Please provide name and region for the user in the request",
     //   });
     // }
-  
+    const {error} = producerSchema.validate(req.body)
+    if(error) {
+      return res.status(400).json({
+        message: `Invalid request body: ${error.details[0].message}`
+      })
+    }
+
     try {
       const result = await knex("producer").insert(req.body);
   

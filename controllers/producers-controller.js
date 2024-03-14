@@ -95,11 +95,17 @@ const getAll = async (_req, res) => {
       })
     }
 
+    const baseUrl = "https://grandordinaire-4b0d635ecbc0.herokuapp.com"
+    const imagePath = baseUrl + '/images/' + req.file.filename;
+
     try {
-      const result = await knex("producer").insert(req.body);
+      const result = await knex("producer").insert({
+        ...req.body,
+        producer_image: imagePath
+      });
   
       const newProducerId = result[0];
-      const createdProducer = await knex("producer").where({ id: newProducerId });
+      const createdProducer = await knex("producer").where({ producer_id: newProducerId }).first();
   
       res.status(201).json(createdProducer);
     } catch (error) {

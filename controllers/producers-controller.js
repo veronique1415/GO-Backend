@@ -115,7 +115,7 @@ const getAll = async (_req, res) => {
     }
   };
 
-  const editProducer = async (req, res) => {
+  const updatedProducer = async (req, res) => {
     const {error} = producerSchema.validate(req.body)
     if(error) {
       return res.status(400).json({
@@ -150,7 +150,7 @@ const getAll = async (_req, res) => {
     }
   };
   
-  const remove = async (req, res) => {
+  const deleteProducer = async (req, res) => {
     try {
       const rowsDeleted = await knex("producer")
         .where({ producer_id: req.params.producerId })
@@ -182,5 +182,7 @@ const getAll = async (_req, res) => {
     getAll,
     findOne,
     searchProducers,
-    add
+    add,
+    updatedProducer, 
+    deleteProducer
   };

@@ -29,12 +29,14 @@ router
 
 router 
     .route("/:producerId")
-    .get(producerController.findOne) 
+    .get(producerController.findOne)
+    .put(producerController.updatedProducer)  
+    .delete(producerController.deleteProducer) 
      
    
 router
     .route("/:producerId/products")
-    .get(productController.producersProducts)  
+    .get(productController.producersProducts)
     
 
 

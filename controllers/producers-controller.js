@@ -115,8 +115,12 @@ const getAll = async (_req, res) => {
     }
   };
 
+  const producerSchemaWithId = producerSchema.keys({
+    producer_id: Joi.number().required()
+  })
+
   const updatedProducer = async (req, res) => {
-    const {error} = producerSchema.validate(req.body)
+    const {error} = producerSchemaWithId.validate(req.body)
     if(error) {
       return res.status(400).json({
         message: `Invalid request body: ${error.details[0].message}`
@@ -158,7 +162,7 @@ const getAll = async (_req, res) => {
   
       if (rowsDeleted === 0) {
         return res.status(404).json({
-          message: `Producer item with this ID ${req.params.producer_id} not found`,
+          message: `Producer with this ID ${req.params.producer_id} not found`,
         });
       }
   

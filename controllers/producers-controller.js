@@ -82,12 +82,6 @@ const getAll = async (_req, res) => {
   })
 
   const add = async (req, res) => {
-    // if (!req.body.producer_name || !req.body.producer_region) {
-    //   console.log(req.body.producer_name)
-    //   return res.status(400).json({
-    //     message: "Please provide name and region for the user in the request",
-    //   });
-    // }
     const {error} = producerSchema.validate(req.body)
     if(error) {
       return res.status(400).json({

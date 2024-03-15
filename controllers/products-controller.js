@@ -142,25 +142,16 @@ const getAll = async (_req, res) => {
     }
   };
 
+  const productSchemaWithId = productSchema.keys({
+    product_id: Joi.number().required()
+  })
+
   const editProduct = async (req, res) => {
-    if (req.method === "PUT") {
-      if (
-        !req.body.product_name ||
-        !req.body.product_id ||
-        !req.body.product_description ||
-        !req.body.product_varietal ||
-        !req.body.product_producer ||
-        !req.body.product_appellation ||
-        !req.body.product_region ||
-        !req.body.product_type || 
-        !req.body.product_image ||
-        !req.body.product_vintage ||
-        !req.body.producer_id 
-      ) {
-        return res
-          .status(400)
-          .json({ message: "Error: Missing property in request body." });
-      }
+    const {error} = productSchemaWithId.validate(req.body)
+    if(error) {
+      return res.status(400).json({
+        message: `Invalid request body: ${error.details[0].message}`
+      })
     }
     try {
       const updatedProduct = await knex("product")

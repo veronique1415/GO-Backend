@@ -141,6 +141,54 @@ const getAll = async (_req, res) => {
       });
     }
   };
+
+  const editProduct = async (req, res) => {
+    if (req.method === "PUT") {
+      if (
+        !req.body.product_name ||
+        !req.body.product_id ||
+        !req.body.product_description ||
+        !req.body.product_varietal ||
+        !req.body.product_producer ||
+        !req.body.product_appellation ||
+        !req.body.product_region ||
+        !req.body.product_type || 
+        !req.body.product_image ||
+        !req.body.product_vintage ||
+        !req.body.producer_id 
+      ) {
+        return res
+          .status(400)
+          .json({ message: "Error: Missing property in request body." });
+      }
+    }
+    try {
+      const updatedProduct = await knex("product")
+        .where({ product_id: req.params.productId })
+        .update(req.body);
+  
+      if (!updatedProduct) {
+        return res.status(404).json({
+          message: `Error: Inventory with item ID ${req.params.producerId} not found.`,
+        });
+      }
+  
+      const newlyUpdatedProduct = await knex("product").where({
+        product_id: req.params.productId,
+      });
+      res.status(200).json(newlyUpdatedProduct);
+    } catch (error) {
+      if (error.errno === 1452) {
+        return res.status(400).json({
+          message: `Error: Product ID ${req.body.product_id} not found.`,
+        });
+      } else {
+        res.status(500).json({
+          message: `Error updating database: ${error}`,
+        });
+      }
+    }
+  };
   
 
   
@@ -150,6 +198,7 @@ const getAll = async (_req, res) => {
     findOne,
     producersProducts,
     searchProducts,
-    add
+    add,
+    editProduct
 
   };

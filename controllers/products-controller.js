@@ -1,6 +1,7 @@
 const knex = require('knex')(require("../knexfile"))
 const express = require("express");
 const router = express.Router();
+const Joi = require("joi")
 
 
 
@@ -106,12 +107,61 @@ const getAll = async (_req, res) => {
     }
   }; 
 
+  const productSchema = Joi.object({
+    product_name: Joi.string().required(),
+    product_description: Joi.string().required(),
+    product_region: Joi.string().required(),
+    product_appellation: Joi.string().required(),
+    product_image: Joi.string().required(),
+    product_producer: Joi.string().required(),
+    product_vintage: Joi.string().required(),
+    product_varietal: Joi.string().required(),
+    product_type: Joi.string().required(),
+    producer_id: Joi.number().required()
+  })
+
+  const add = async (req, res) => {
+    // if (!req.body.producer_name || !req.body.producer_region) {
+    //   console.log(req.body.producer_name)
+    //   return res.status(400).json({
+    //     message: "Please provide name and region for the user in the request",
+    //   });
+    // }
+    const {error} = productSchema.validate(req.body)
+    if(error) {
+      return res.status(400).json({
+        message: `Invalid request body: ${error.details[0].message}`
+      })
+    }
+
+    // const baseUrl = "https://grandordinaire-4b0d635ecbc0.herokuapp.com"
+    // const imagePath = baseUrl + '/images/' + req.file.filename;
+
+    try {
+    //   const result = await knex("producer").insert({
+    //     ...req.body,
+    //     producer_image: imagePath
+    //   });
+  
+      const newProductId = result[0];
+      const createdProduct = await knex("product").where({ product_id: newProductId }).first();
+  
+      res.status(201).json(createdProduct);
+    } catch (error) {
+      res.status(500).json({
+        message: `Unable to create new user: ${error}`,
+      });
+    }
+  };
+  
+
   
 
   module.exports = {
     getAll,
     findOne,
     producersProducts,
-    searchProducts
+    searchProducts,
+    add
 
   };

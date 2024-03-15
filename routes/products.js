@@ -20,6 +20,7 @@ const upload = multer({ storage: storage });
 router
     .route("/")
     .get(productsController.getAll)
+    .post(productsController.add)
 
 router
     .route("/search")

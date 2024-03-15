@@ -30,6 +30,7 @@ router
     .route("/:productId")
     .get(productsController.findOne)
     .put(productsController.editProduct)
+    .delete(productsController.remove)
 
 
 

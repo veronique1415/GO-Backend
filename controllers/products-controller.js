@@ -190,6 +190,26 @@ const getAll = async (_req, res) => {
     }
   };
   
+  const remove = async (req, res) => {
+    try {
+      const rowsDeleted = await knex("product")
+        .where({ product_id: req.params.productId })
+        .delete();
+  
+      if (rowsDeleted === 0) {
+        return res.status(404).json({
+          message: `Inventory item with this ID ${req.params.product_id} not found`,
+        });
+      }
+  
+      // No Content response
+      res.sendStatus(204);
+    } catch (error) {
+      res.status(500).json({
+        message: `Unable to delete user: ${error}`,
+      });
+    }
+  };
 
   
 
@@ -199,6 +219,7 @@ const getAll = async (_req, res) => {
     producersProducts,
     searchProducts,
     add,
-    editProduct
+    editProduct,
+    remove
 
   };

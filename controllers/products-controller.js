@@ -121,12 +121,6 @@ const getAll = async (_req, res) => {
   })
 
   const add = async (req, res) => {
-    // if (!req.body.producer_name || !req.body.producer_region) {
-    //   console.log(req.body.producer_name)
-    //   return res.status(400).json({
-    //     message: "Please provide name and region for the user in the request",
-    //   });
-    // }
     const {error} = productSchema.validate(req.body)
     if(error) {
       return res.status(400).json({
@@ -134,15 +128,9 @@ const getAll = async (_req, res) => {
       })
     }
 
-    // const baseUrl = "https://grandordinaire-4b0d635ecbc0.herokuapp.com"
-    // const imagePath = baseUrl + '/images/' + req.file.filename;
-
     try {
-    //   const result = await knex("producer").insert({
-    //     ...req.body,
-    //     producer_image: imagePath
-    //   });
-  
+      const result = await knex("product").insert(req.body)
+      
       const newProductId = result[0];
       const createdProduct = await knex("product").where({ product_id: newProductId }).first();
   

@@ -169,7 +169,7 @@ const getAll = async (_req, res) => {
   
       if (!updatedProduct) {
         return res.status(404).json({
-          message: `Error: Inventory with item ID ${req.params.producerId} not found.`,
+          message: `Error: Inventory with item ID ${req.params.productId} not found.`,
         });
       }
   
@@ -198,7 +198,7 @@ const getAll = async (_req, res) => {
   
       if (rowsDeleted === 0) {
         return res.status(404).json({
-          message: `Inventory item with this ID ${req.params.product_id} not found`,
+          message: `Product with this ID ${req.params.product_id} not found`,
         });
       }
   
@@ -206,7 +206,7 @@ const getAll = async (_req, res) => {
       res.sendStatus(204);
     } catch (error) {
       res.status(500).json({
-        message: `Unable to delete user: ${error}`,
+        message: `Unable to delete product: ${error}`,
       });
     }
   };

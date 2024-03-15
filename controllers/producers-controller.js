@@ -114,6 +114,63 @@ const getAll = async (_req, res) => {
       });
     }
   };
+
+  const editProducer = async (req, res) => {
+    const {error} = producerSchema.validate(req.body)
+    if(error) {
+      return res.status(400).json({
+        message: `Invalid request body: ${error.details[0].message}`
+      })
+    }
+    try {
+      const updatedProducer = await knex("producer")
+        .where({ producer_id: req.params.producerId })
+        .update(req.body);
+  
+      if (!updatedProducer) {
+        return res.status(404).json({
+          message: `Error: Inventory with item ID ${req.params.producerId} not found.`,
+        });
+      }
+  
+      const newlyUpdatedProducer = await knex("producer").where({
+        producer_id: req.params.producerId,
+      });
+      res.status(200).json(newlyUpdatedProducer);
+    } catch (error) {
+      if (error.errno === 1452) {
+        return res.status(400).json({
+          message: `Error: Producer ID ${req.body.producer_id} not found.`,
+        });
+      } else {
+        res.status(500).json({
+          message: `Error updating database: ${error}`,
+        });
+      }
+    }
+  };
+  
+  const remove = async (req, res) => {
+    try {
+      const rowsDeleted = await knex("producer")
+        .where({ producer_id: req.params.producerId })
+        .delete();
+  
+      if (rowsDeleted === 0) {
+        return res.status(404).json({
+          message: `Producer item with this ID ${req.params.producer_id} not found`,
+        });
+      }
+  
+      // No Content response
+      res.sendStatus(204);
+    } catch (error) {
+      res.status(500).json({
+        message: `Unable to delete producer: ${error}`,
+      });
+    }
+  };
+
   
  
   
